@@ -10,7 +10,6 @@ Create a new playground first:
   >   # Windows
   >   PATH=FOO/Scripts:$PATH
   > fi
-  $ PATH=FOO/bin:$PATH
   $ python -m pip install --upgrade pip > /dev/null 2>&1
   $ pip install -U wheel packaging argparse setuptools >/dev/null 2>&1
   $ pip install -e . >/dev/null 2>&1

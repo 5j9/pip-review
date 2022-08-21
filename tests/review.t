@@ -11,7 +11,7 @@ Create a new playground first:
   >   PATH=FOO/Scripts:$PATH
   > fi
   $ PATH=FOO/bin:$PATH
-  $ pip install --upgrade --force-reinstall 'pip' > /dev/null 2>&1
+  $ python -m pip install --upgrade pip > /dev/null 2>&1
   $ pip install argparse >/dev/null 2>&1
   $ pip install packaging >/dev/null 2>&1
   $ pip install -U --force-reinstall argparse >/dev/null 2>&1

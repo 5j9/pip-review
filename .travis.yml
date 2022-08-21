@@ -9,7 +9,7 @@ branches:
     - piptools-ignore-patch
 install:
   - "pip install -U setuptools pip wheel"
-  - "pip install cram"
+  - "pip install prysk"
   - "pip install ."
 script:
-  - "cram --shell=/bin/bash tests/*.t"
+  - "prysk --shell=/bin/bash tests/*.t"

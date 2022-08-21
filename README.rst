@@ -127,4 +127,4 @@ tool now lives on as a separate package.
 .. _pip-tools: https://github.com/nvie/pip-tools/
 .. _discontinued: https://github.com/nvie/pip-tools/issues/185
 .. _Pin Your Packages: http://nvie.com/posts/pin-your-packages/
-.. _cram: https://bitheap.org/cram/
+

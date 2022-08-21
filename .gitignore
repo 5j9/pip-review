@@ -1,4 +1,4 @@
-# Ignore cram test output
+# Ignore prysk test output
 *.t.err
 /.tox
 /FOO

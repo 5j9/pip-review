@@ -13,7 +13,7 @@ Create a new playground first:
   $ PATH=FOO/bin:$PATH
   $ python -m pip install --upgrade pip > /dev/null 2>&1
   $ pip install -U wheel packaging argparse setuptools >/dev/null 2>&1
-  $ pip install -e .
+  $ pip install -e . >/dev/null 2>&1
 
 Setup. Let's pretend we have some outdated package versions installed:
 

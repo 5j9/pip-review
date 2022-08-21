@@ -57,7 +57,7 @@ It knows which arguments not to forward to pip install:
 
 Next, let's test for regressions with older versions of pip:
 
-  $ pip install --force-reinstall --upgrade pip\<6.0 >/dev/null 2>&1
+  $ python -m pip install pip\<6.0 >/dev/null 2>&1
   $ if python -c 'import sys; sys.exit(0 if sys.version_info < (3, 6) else 1)'; then
   >   rm -rf pip_review.egg-info  # prevents spurious editable in pip freeze
   >   pip-review | egrep '^pip=='

@@ -12,12 +12,8 @@ Create a new playground first:
   > fi
   $ PATH=FOO/bin:$PATH
   $ python -m pip install --upgrade pip > /dev/null 2>&1
-  $ pip install argparse >/dev/null 2>&1
-  $ pip install packaging >/dev/null 2>&1
-  $ pip install -U --force-reinstall argparse >/dev/null 2>&1
-  $ pip install -U --force-reinstall wheel >/dev/null 2>&1
-  $ pip install -U --force-reinstall setuptools >/dev/null 2>&1
-  $ function pip-review { python -m pip_review.__main__ $* ; }
+  $ pip install -U wheel packaging argparse setuptools >/dev/null 2>&1
+  $ pip install -e .
 
 Setup. Let's pretend we have some outdated package versions installed:
 

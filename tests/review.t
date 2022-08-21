@@ -3,6 +3,13 @@ Create a new playground first:
   $ cd $TESTDIR/..
   $ pip install virtualenv >/dev/null 2>&1
   $ virtualenv FOO >/dev/null 2>&1
+  $ if [ -d "FOO/bin" ]
+  > then
+  >   PATH=FOO/bin:$PATH
+  > else
+  >   # Windows
+  >   PATH=FOO/Scripts:$PATH
+  > fi
   $ PATH=FOO/bin:$PATH
   $ pip install --upgrade --force-reinstall 'pip' > /dev/null 2>&1
   $ pip install argparse >/dev/null 2>&1

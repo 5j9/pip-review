@@ -36,7 +36,7 @@ class CopyingMock(Mock):
     # captured correctly. This class is workaround. See:
     # https://docs.python.org/3/library/unittest.mock-examples.html#coping-with-mutable-arguments
 
-    def __call__(self, /, *args, **kwargs):
+    def __call__(self, *args, **kwargs):
         return super().__call__(*deepcopy(args), **kwargs)
 
 

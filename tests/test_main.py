@@ -31,6 +31,15 @@ class FakePopen:
         return self.returncode
 
 
+class CopyingMock(Mock):
+    # Popen args are mutated inside update_packages package and are not
+    # captured correctly. This class is workaround. See:
+    # https://docs.python.org/3/library/unittest.mock-examples.html#coping-with-mutable-arguments
+
+    def __call__(self, /, *args, **kwargs):
+        return super().__call__(*deepcopy(args), **kwargs)
+
+
 def outdated_call(forwarded=None):
     args = [
         python, '-m', 'pip', 'list', '--outdated', '--disable-pip-version-check', '--format=json'
@@ -49,7 +58,7 @@ def simulate(sys_argv, fake_popens):
             with (
                 patch('sys.argv', sys_argv),
                 patch('pip_review.__main__.setup_logging', return_value=logger),
-                patch('subprocess.Popen', side_effect=fake_popens) as popen
+                patch('subprocess.Popen', CopyingMock(side_effect=fake_popens)) as popen
             ):
                 main()
                 test_func(popen, logger)
@@ -145,4 +154,25 @@ def test_forwarding_to_list_not_install(popen, logger):
     assert popen.call_args.args[0] == [
         python, '-m', 'pip', 'install', '-U', 'setuptools']
     assert popen.call_count == 2
+    assert not logger.mock_calls
+
+
+@simulate(
+    ['', '--auto', '--continue-on-fail'],
+    [
+        FakePopen(
+            b'[{"name": "badpackage", "version": "0.1", "latest_version": "0.2", "latest_filetype": "wheel"},'
+            b' {"name": "setuptools", "version": "65.1.1", "latest_version": "65.3.0", "latest_filetype": "wheel"}]\n'
+        ),
+        FakePopen(returncode=-1),  # fail on badpackage
+        FakePopen()  # continue with installing setuptools
+    ],
+)
+def test_two_packages_one_failing_continue(popen, logger):
+    assert popen.call_args_list[0] == outdated_call()
+    assert popen.call_args_list[1].args[0] == [
+        python, '-m', 'pip', 'install', '-U', 'badpackage']
+    assert popen.call_args_list[2].args[0] == [
+        python, '-m', 'pip', 'install', '-U', 'setuptools']
+    assert popen.call_count == 3
     assert not logger.mock_calls

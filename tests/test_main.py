@@ -55,12 +55,10 @@ def simulate(sys_argv, fake_popens):
 
         def run_simulated():
             logger = Mock()
-            with (
-                patch('sys.argv', sys_argv),
-                patch('pip_review.__main__.setup_logging', return_value=logger),
-                patch('subprocess.Popen', CopyingMock(side_effect=fake_popens)) as popen
-            ):
-                main()
+            with patch('subprocess.Popen', CopyingMock(side_effect=fake_popens)) as popen:
+                with patch('pip_review.__main__.setup_logging', return_value=logger):
+                    with patch('sys.argv', sys_argv):
+                        main()
                 test_func(popen, logger)
 
         return run_simulated

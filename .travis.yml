@@ -8,8 +8,9 @@ branches:
   except:
     - piptools-ignore-patch
 install:
-  - "pip install -U setuptools pip wheel"
+  - "pip install -U setuptools pip wheel pytest"
   - "pip install cram"
   - "pip install ."
 script:
   - "cram --shell=/bin/bash tests/*.t"
+  - "pytest"

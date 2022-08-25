@@ -1,3 +1,4 @@
+from copy import deepcopy
 import subprocess
 from unittest.mock import patch, call, Mock
 from sys import executable as python
@@ -132,7 +133,7 @@ def test_forwarding_to_install_not_list(popen, logger):
     assert popen.call_args_list[1].args[0] == [
         python, '-m', 'pip', 'install', '-U', '--force-reinstall', 'setuptools']
     assert popen.call_count == 2
-    logger.assert_not_called()
+    assert not logger.mock_calls
 
 
 @simulate(
@@ -144,4 +145,4 @@ def test_forwarding_to_list_not_install(popen, logger):
     assert popen.call_args.args[0] == [
         python, '-m', 'pip', 'install', '-U', 'setuptools']
     assert popen.call_count == 2
-    logger.assert_not_called()
+    assert not logger.mock_calls

@@ -12,5 +12,5 @@ install:
   - "pip install cram"
   - "pip install ."
 script:
-  - "cram --shell=/bin/bash tests/*.t"
   - "pytest"
+  - "cram --shell=/bin/bash tests/*.t"

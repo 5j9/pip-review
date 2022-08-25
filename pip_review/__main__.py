@@ -173,10 +173,10 @@ def update_packages(packages, forwarded, continue_on_fail):
         subprocess.call(upgrade_cmd, stdout=sys.stdout, stderr=sys.stderr)
         return
 
+    upgrade_cmd.append('')
     for pkg in packages:
-        upgrade_cmd += ['{0}'.format(pkg['name'])]
+        upgrade_cmd[-1] = '{0}'.format(pkg['name'])
         subprocess.call(upgrade_cmd, stdout=sys.stdout, stderr=sys.stderr)
-        upgrade_cmd.pop()
 
 
 def confirm(question):
